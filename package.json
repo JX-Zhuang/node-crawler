@@ -1,0 +1,22 @@
+{
+  "name": "node-crawler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JX-Zhuang/node-crawler.git"
+  },
+  "author": "JX-Zhuang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JX-Zhuang/node-crawler/issues"
+  },
+  "homepage": "https://github.com/JX-Zhuang/node-crawler#readme",
+  "devDependencies": {
+    "iconv-lite": "^0.4.15"
+  }
+}
