@@ -2,24 +2,25 @@
  * Created by Jesse on 17/3/4.
  */
 const http = require("http"),
-    cheerio = require("cheerio"),
-    iconv = require("iconv-lite");
-let result = "";
+    url = require("url");
 http.createServer((req, res) => {
+    let pathname = url.parse(req.url).pathname,
+        str = "";
     res.writeHead(200, {"Content-Type": "text/plain"});
-    res.end(result);
-}).listen(5560);
-http.get("http://cn.memebox.com/sas/sms/list", (res) => {
-    let html = "";
-    // res.setEncoding('utf8');
-    res.on("data", (chunk) => html += chunk);
-    // res.on("data", (chunk) => html += iconv.decode(chunk,"gb2312"));
-    res.on("end", () => {
-        result = html;
-        // const $ = cheerio.load(html);
-        // console.log(html);
-        // $("#new_s_sc .newsRumors-top li a").each((index,ele)=>{
-        //     result.push($(ele).text());
-        // });
+    http.get("http://cn.memebox.com/h5/view/index", (respose) => {
+        respose.on("data", (chunk) => str += chunk);
+        respose.on("end", () => {
+            const obj = JSON.parse(str),
+                ary = pathname.slice(1).split("/");
+            let result = obj;
+            ary.forEach((item,index)=>{
+               if(result[item]){
+                    result = result[item];
+               } else {
+                   res.end("404");
+               }
+            });
+            res.end(JSON.stringify(result));
+        });
     });
-});
+}).listen(5560);
